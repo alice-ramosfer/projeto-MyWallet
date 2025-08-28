@@ -7,7 +7,7 @@ export async function signUp(req,res) {
     const body = req.body;
  
     try{
-        const searchEmail = db.collection("users").findOne({email:body.email});
+        const searchEmail = await db.collection("users").findOne({email:body.email});
         if (searchEmail) return res.sendStatus(409);
         await db.collection("users").insertOne({
             ...body,
