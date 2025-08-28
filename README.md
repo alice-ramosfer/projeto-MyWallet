@@ -22,10 +22,15 @@ O backend foi desenvolvido em **Node.js** com **Express**, utilizando **MongoDB 
 
 MyWallet-backend/
 │── src/
+
 │   ├── config/         # Conexão com MongoDB
+
 │   ├── controllers/    # Lógica das rotas
+
 │   ├── middlewares/    # Middlewares (validações, token, schemas)
+
 │   ├── routers/        # Definição de rotas
+
 │   ├── schemas/        # Schemas do Joi
 │
 │── app.js              # Ponto de entrada da aplicação
