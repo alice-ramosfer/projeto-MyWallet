@@ -14,8 +14,8 @@ export async function signUp(req,res) {
             senha:bcrypt.hashSync(body.senha,10)
         });
         return res.sendStatus(201);
-    }catch(err){
-        return res.sendStatus(500)
+    }catch(error){
+        return res.status(500).send(error.message)
     }
 
 
