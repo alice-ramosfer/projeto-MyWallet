@@ -23,7 +23,6 @@ export async function postTransaction(req,res) {
 }
 
 export async function getTransaction(req,res) {
-    // const {id} = req.params; // não precisa passar o id so pegar pelo res.locals.user._id
     const page = req.query.page || 1;
 
     if (Number(page) < 0) return res.sendStatus(400);
