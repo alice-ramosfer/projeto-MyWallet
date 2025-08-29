@@ -65,14 +65,14 @@ O servidor iniciará em:
 ### 🔐 Autenticação
 - POST /sign-up → Cria um novo usuário              
   Body:                              
-  { "name": "Alice", "email": "alice@email.com", "senha": "123456" }
+  { "name": "Alice", "email": "alice@email.com", "password": "123456" }
           
-- POST /sign-in → Autentica usuário e retorna token                  
+- POST /sign-in → Autentica usuário e retorna token mais o nome do usuário                       
   Body:                          
-  { "email": "alice@email.com", "senha": "123456" }
+  { "email": "alice@email.com", "password": "123456" }  
 
   Response:                  
-  { "token": "jwt_token_aqui" }
+  { "token": "jwt_token_aqui", name: "Alice" }
 
 ---
 
@@ -80,10 +80,18 @@ O servidor iniciará em:
 - POST /transactions → Cria nova transação (deposit ou withdraw)       
   Headers: Authorization: Bearer <token>         
   Body:             
-  { "value": 100, "description": "Salário", "type": "deposit" }
+  { "value": 100, "description": "Salário", "type": "deposit ou withdraw" }
 
-- GET /transactions/:id → Lista transações do usuário             
-  Headers: Authorization: Bearer <token>            
+- GET /transactions/ → Lista transações do usuário             
+  Headers: Authorization: Bearer <token>
+  
+- PUT /transactions/:id (id da transação) → Altera transação do usuário          
+  Headers: Authorization: Bearer <token>   
+
+- DELETE /transactions/:id (id da transação) → Deleta transação do usuário              
+  Headers: Authorization: Bearer <token>   
+
+  
 
 ---
 
