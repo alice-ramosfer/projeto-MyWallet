@@ -20,7 +20,7 @@ export async function postTransaction(req,res) {
         return res.sendStatus(500);
     }
     
-}
+};
 
 export async function getTransaction(req,res) {
     const page = req.query.page || 1;
@@ -40,7 +40,7 @@ export async function getTransaction(req,res) {
         return res.status(500).send(error.message)
     }
     
-}
+};
 
 export async function putTrasaction(req,res) {
     const {id} = req.params;
@@ -48,8 +48,8 @@ export async function putTrasaction(req,res) {
     try {
         const searchId = await db.collection("transactions").findOne({_id: new ObjectId(id) });
         if(!searchId) return res.sendStatus(404);
-
-        if (searchId && searchId.user != res.locals.user._id){
+       
+        if (searchId && !searchId.user.equals(res.locals.user._id)){
             return res.sendStatus(401)
         }
         await db.collection("transactions").updateOne({_id: new ObjectId(id)},{
@@ -64,7 +64,7 @@ export async function putTrasaction(req,res) {
         return res.status(500).send(error.message)
     }
     
-}
+};
 
 export async function deleteTransaction(req,res) {
     const {id} = req.params;
@@ -73,7 +73,7 @@ export async function deleteTransaction(req,res) {
         const searchId = await db.collection("transactions").findOne({_id: new ObjectId(id) });
         
         if(!searchId) return res.sendStatus(404);
-        if (searchId && searchId.user != res.locals.user._id){
+        if (searchId && !searchId.user.equals(res.locals.user._id)){
             return res.sendStatus(401)
         }
         await db.collection("transactions").deleteOne({_id: new ObjectId(id)});
@@ -82,4 +82,4 @@ export async function deleteTransaction(req,res) {
     } catch (error) {
         return res.status(500).send(error.message)
     }
-}
+};
