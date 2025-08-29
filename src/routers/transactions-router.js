@@ -7,7 +7,7 @@ import { validateToken } from "../middlewares/auth-middlewares.js";
 const transactionsRoutes = Router();
 
 transactionsRoutes.post("/transactions", validateToken ,validateSchema(transactionSchema),postTransaction);
-transactionsRoutes.get("/transactions/:id", validateToken, getTransaction);
+transactionsRoutes.get("/transactions/", validateToken, getTransaction);
 transactionsRoutes.delete("/transactions/:id", validateToken, deleteTransaction);
 transactionsRoutes.put("/transactions/:id", validateToken, validateSchema(transactionSchema),putTrasaction);
 export  default transactionsRoutes; 
