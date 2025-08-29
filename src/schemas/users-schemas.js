@@ -2,12 +2,12 @@ import joi from "joi";
 
 export const userSignUpSchema = joi.object({
     
-    nome: joi.string().required(),
+    name: joi.string().required(),
     email:joi.string().email().required(),
-    senha:joi.string().min(6).required()
+    password:joi.string().min(6).required()
 });
 
 export const userSignInSchema = joi.object({
     email:joi.string().email().required(),
-    senha:joi.string().required()
+    password:joi.string().required()
 });

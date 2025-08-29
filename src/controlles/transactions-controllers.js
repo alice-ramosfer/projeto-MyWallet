@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import { db } from "../config/database.js";
+import moment from 'moment';
 
 
 export async function postTransaction(req,res) {
@@ -9,6 +10,7 @@ export async function postTransaction(req,res) {
     try{
         await db.collection("transactions").insertOne({
                 user: res.locals.user._id,
+                date: moment().format('DD-MM'),
                 value:newtransaction.value,
                 description:newtransaction.description,
                 type: newtransaction.type
@@ -34,7 +36,7 @@ export async function getTransaction(req,res) {
     try {
         const userTransactions = await db.collection("transactions").find({user: new ObjectId(res.locals.user._id) }).skip(start).limit(limit).toArray()
         if(userTransactions.length === 0) return res.sendStatus(404);
-        return res.send(userTransactions);
+        return res.send(userTransactions.slice().reverse());
 
     } catch (error) {
         return res.status(500).send(error.message)

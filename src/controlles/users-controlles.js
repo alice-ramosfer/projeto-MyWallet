@@ -11,7 +11,7 @@ export async function signUp(req,res) {
         if (searchEmail) return res.sendStatus(409);
         await db.collection("users").insertOne({
             ...body,
-            senha:bcrypt.hashSync(body.senha,10)
+            password:bcrypt.hashSync(body.password,10)
         });
         return res.sendStatus(201);
     }catch(error){
@@ -32,10 +32,10 @@ export async function  signIn(req,res) {
             return res.status(404).send("Email ou senha incorretos");
         }
     
-        if (registereduser && bcrypt.compareSync( body.senha, registereduser.senha)){
+        if (registereduser && bcrypt.compareSync( body.password, registereduser.password)){
 
             const token = jwt.sign({userId:registereduser._id},process.env.JWT,{expiresIn:172800});
-            return res.status(200).send(token);
+            return res.status(200).send({token, name:registereduser.name});
         }
         return res.status(401).send("Email ou senha incorretos");
 
